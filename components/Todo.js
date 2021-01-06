@@ -7,7 +7,6 @@ import {
   TextInput,
 } from 'react-native';
 import TodoButton from './TodoButton';
-import DoubleClick from './DoubleClick';
 let backCount = 0;
 const Todo = ({ todo, toggleComplete, deleteTodo, editTodo }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -66,17 +65,6 @@ const Todo = ({ todo, toggleComplete, deleteTodo, editTodo }) => {
           }}
         />
       )}
-
-      {/* <DoubleClick delay={1000} onClick={handleClick}>
-        <Text
-          style={[
-            styles.todoText,
-            { textDecorationLine: todo.complete ? 'line-through' : 'none' },
-          ]}
-        >
-          {todo.title}
-        </Text>
-      </DoubleClick> */}
 
       <View style={styles.buttons}>
         <TodoButton

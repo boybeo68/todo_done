@@ -5,6 +5,8 @@ import Input from './components/Input';
 import Button from './components/Button';
 import TodoList from './components/TodoList';
 import TabBar from './components/Tabbar';
+import { connect } from 'react-redux';
+import { ADD_TODO } from './redux_learn/action';
 // import Button from './components/Button';
 let todoIndex = 0;
 class App extends Component {
@@ -67,7 +69,8 @@ class App extends Component {
     };
     todoIndex++;
     const todos = [...this.state.todos, todo];
-    this.setState({ todos, inputValue: '' }, () => {
+    this.props.dispatch({ type: ADD_TODO, todo });
+    this.setState({ inputValue: '' }, () => {
       console.log('State: ', this.state);
     });
   }
@@ -83,6 +86,7 @@ class App extends Component {
           contentContainerStyle={styles.content}
         >
           <Heading />
+          <Text>{JSON.stringify(this.props.todos)}</Text>
           <Input
             submit={this.submitTodo}
             inputValue={inputValue}
@@ -93,7 +97,7 @@ class App extends Component {
             editTodo={this.editTodo}
             toggleComplete={this.toggleComplete}
             deleteTodo={this.deleteTodo}
-            todos={todos}
+            todos={this.props.todos}
           />
           <View
             style={{
@@ -124,5 +128,10 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
 });
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todosReducer,
+  };
+};
 
-export default App;
+export default connect(mapStateToProps)(App);
